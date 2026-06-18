@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IR World Cup 2026 — Pool Stats</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #F4F3FF;
+    color: #07024B;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: #07024B;
+    padding: 32px 24px 28px;
+    text-align: center;
+  }
+  .header h1 {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .header p {
+    color: #A9A3FF;
+    font-size: 13px;
+    margin-top: 6px;
+  }
+  .header .badge {
+    display: inline-block;
+    background: #4E3FFB;
+    color: #E4E2FE;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-top: 12px;
+    letter-spacing: 0.4px;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #4E3FFB;
+    margin: 32px 0 14px;
+  }
+
+  .stat-strip {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .stat-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px 18px;
+    flex: 1;
+    min-width: 120px;
+    box-shadow: 0 1px 4px rgba(7,2,75,0.07);
+    text-align: center;
+  }
+  .stat-box .num {
+    font-size: 28px;
+    font-weight: 700;
+    color: #4E3FFB;
+    line-height: 1;
+  }
+  .stat-box .lbl {
+    font-size: 11px;
+    color: #888;
+    margin-top: 4px;
+  }
+
+  /* ── ROAST CARDS ── */
+  .roast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .roast-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 4px rgba(7,2,75,0.07);
+    border-left: 4px solid #4E3FFB;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #333;
+  }
+  .roast-card.warn  { border-left-color: #F5A623; }
+  .roast-card.good  { border-left-color: #53E2D8; }
+  .roast-card.fire  { border-left-color: #E74C3C; }
+  .roast-card .roast-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #4E3FFB;
+    margin-bottom: 6px;
+  }
+  .roast-card.warn .roast-label  { color: #F5A623; }
+  .roast-card.good .roast-label  { color: #0A9B90; }
+  .roast-card.fire .roast-label  { color: #E74C3C; }
+
+  /* ── SURVIVAL TABLE ── */
+  .survival-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(7,2,75,0.07);
+  }
+  .survival-table th {
+    background: #07024B;
+    color: #A9A3FF;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 11px 14px;
+    text-align: left;
+  }
+  .survival-table td {
+    padding: 12px 14px;
+    font-size: 13px;
+    border-bottom: 1px solid #F0EFFE;
+    vertical-align: middle;
+  }
+  .survival-table tr:last-child td { border-bottom: none; }
+  .survival-table tr:nth-child(even) td { background: #FAFAFE; }
+
+  .name { font-weight: 600; font-size: 13px; }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    margin: 2px 2px;
+  }
+  .tag.win   { background: #D1FAF0; color: #0A6B64; }
+  .tag.draw  { background: #FFF3CD; color: #856404; }
+
+  .picks-mini { display: flex; flex-wrap: wrap; }
+
+  /* ── GOLDEN BOOT TABLE ── */
+  .boot-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(7,2,75,0.07);
+  }
+  .boot-table th {
+    background: #07024B;
+    color: #A9A3FF;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 11px 14px;
+    text-align: left;
+  }
+  .boot-table td {
+    padding: 12px 14px;
+    font-size: 13px;
+    border-bottom: 1px solid #F0EFFE;
+    vertical-align: middle;
+  }
+  .boot-table tr:last-child td { border-bottom: none; }
+
+  .goals-bar-wrap { display: flex; align-items: center; gap: 10px; }
+  .goals-bar { height: 8px; border-radius: 4px; background: #4E3FFB; }
+  .goals-num { font-size: 13px; font-weight: 700; color: #07024B; min-width: 16px; }
+
+  .leader-tag {
+    display: inline-block;
+    background: #FFF3CD;
+    color: #856404;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-left: 6px;
+  }
+  .pickers { font-size: 11px; color: #555; line-height: 1.6; }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #555;
+  }
+
+  .note {
+    background: #E4E2FE;
+    border-left: 3px solid #4E3FFB;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #3a3080;
+    margin-top: 32px;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>IR World Cup 2026 — Pool Stats</h1>
+  <p>13 participants · Updated June 18, 2026</p>
+  <div class="badge">Group Stage — Matchday 1 Complete</div>
+</div>
+
+<div class="container">
+
+  <div class="section-title">At a glance</div>
+  <div class="stat-strip">
+    <div class="stat-box"><div class="num">13</div><div class="lbl">Participants</div></div>
+    <div class="stat-box"><div class="num">36</div><div class="lbl">Matches played</div></div>
+    <div class="stat-box"><div class="num">24</div><div class="lbl">Matches left in group stage</div></div>
+    <div class="stat-box"><div class="num">Jun 27</div><div class="lbl">First points awarded</div></div>
+  </div>
+
+  <!-- Roast cards -->
+  <div class="section-title">Matchday 1 — what we learned</div>
+  <div class="roast-grid">
+
+    <div class="roast-card warn">
+      <div class="roast-label">The Spain situation</div>
+      6 people picked Spain to win this whole thing. Spain's first game? A 0-0 draw against Cabo Verde. That's right — Cabo Verde. An island nation of 500,000 people. Stamatis, Saad, Gerasimos, María Camila, Dani B., and Alyson: your champion has some explaining to do.
+    </div>
+
+    <div class="roast-card fire">
+      <div class="roast-label">Goals? Germany has plenty.</div>
+      Germany 7 — Curaçao 1. Seven. Edna, who picked Germany to win the whole tournament, is looking increasingly less crazy. Kai Havertz alone scored twice. Florian Wirtz is putting on a clinic. The rest of us may owe Edna an apology.
+    </div>
+
+    <div class="roast-card good">
+      <div class="roast-label">Dan Tovar's quiet power move</div>
+      Dan is the only person who picked Messi as top scorer. Messi then scored a hat-trick in Argentina's first game — his first-ever World Cup hat-trick, at 38 years old. Dan says nothing. Dan just wins.
+    </div>
+
+    <div class="roast-card warn">
+      <div class="roast-label">Portugal: also disappointing</div>
+      Dan and Cesar both picked Portugal as champion. Portugal drew 1-1 with Congo DR. Not exactly the statement of a team about to win a World Cup. Ronaldo played 90 minutes and scored zero goals. Just like the last World Cup. And the one before that.
+    </div>
+
+    <div class="roast-card good">
+      <div class="roast-label">France looked sharp</div>
+      Mbappé scored twice, France won 3-1, and the 3 people who picked France — Zeshan, Isabel, and Criz — are feeling very good about themselves right now. Deservedly so.
+    </div>
+
+    <div class="roast-card fire">
+      <div class="roast-label">USA 4 — Paraguay 1</div>
+      Folarin Balogun had two goals before halftime. The USA is playing like a team that actually wants to win its own World Cup. Everyone who put USA in their quarterfinalists is sitting comfortably. Stamatis, Dan, Cesar, Alyson: good call.
+    </div>
+
+  </div>
+
+  <!-- Survival tracker -->
+  <div class="section-title">How are your picks doing?</div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="tag win">Team</span> Won their opener</div>
+    <div class="legend-item"><span class="tag draw">Team</span> Drew their opener</div>
+  </div>
+
+  <table class="survival-table">
+    <thead>
+      <tr>
+        <th>Participant</th>
+        <th>Champion</th>
+        <th>Runner-up</th>
+        <th>Quarterfinalist picks — matchday 1 form</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td><div class="name">Stamatis Astra</div></td>
+        <td><span class="tag draw">Spain</span></td>
+        <td><span class="tag draw">Brazil</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">Argentina</span>
+            <span class="tag win">France</span>
+            <span class="tag win">Germany</span>
+            <span class="tag win">Mexico</span>
+            <span class="tag win">USA</span>
+            <span class="tag draw">Brazil</span>
+            <span class="tag draw">Netherlands</span>
+            <span class="tag draw">Spain</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="name">Zeshan Javed</div></td>
+        <td><span class="tag win">France</span></td>
+        <td><span class="tag draw">Spain</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">Argentina</span>
+            <span class="tag win">England</span>
+            <span class="tag win">France</span>
+            <span class="tag win">Germany</span>
+            <span class="tag win">Portugal</span>
+            <span class="tag draw">Brazil</span>
+            <span class="tag draw">Netherlands</span>
+            <span class="tag draw">Spain</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="name">Rafay Abbas</div></td>
+        <td><span class="tag win">Argentina</span></td>
+        <td><span class="tag win">France</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">Argentina</span>
+            <span class="tag win">England</span>
+            <span class="tag win">France</span>
+            <span class="tag win">Germany</span>
+            <span class="tag win">Portugal</span>
+            <span class="tag draw">Brazil</span>
+            <span class="tag draw">Netherlands</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="name">Isabel Parra</div></td>
+        <td><span class="tag win">France</span></td>
+        <td><span class="tag win">Germany</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">Argentina</span>
+            <span class="tag win">Colombia</span>
+            <span class="tag win">England</span>
+            <span class="tag win">France</span>
+            <span class="tag win">Germany</span>
+            <span class="tag draw">Brazil</span>
+            <span class="tag draw">Morocco</span>
+            <span class="tag draw">Netherlands</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="name">Saad Arshad</div></td>
+        <td><span class="tag draw">Spain</span></td>
+        <td><span class="tag win">France</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">Argentina</span>
+            <span class="tag win">England</span>
+            <span class="tag win">France</span>
+            <span class="tag win">Germany</span>
+            <span class="tag win">Portugal</span>
+            <span class="tag draw">Spain</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="name">Gerasimos Bekos</div></td>
+        <td><span class="tag draw">Spain</span></td>
+        <td><span class="tag draw">Brazil</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">Argentina</span>
+            <span class="tag win">Belgium</span>
+            <span class="tag win">England</span>
+            <span class="tag win">France</span>
+            <span class="tag draw">Brazil</span>
+            <span class="tag draw">Netherlands</span>
+            <span class="tag draw">Spain</span>
+            <span class="tag draw">Switzerland</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="name">María Camila Ortiz</div></td>
+        <td><span class="tag draw">Spain</span></td>
+        <td><span class="tag draw">Netherlands</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">Argentina</span>
+            <span class="tag win">Colombia</span>
+            <span class="tag win">England</span>
+            <span class="tag win">France</span>
+            <span class="tag win">Portugal</span>
+            <span class="tag draw">Morocco</span>
+            <span class="tag draw">Netherlands</span>
+            <span class="tag draw">Spain</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="name">Dani B.</div></td>
+        <td><span class="tag draw">Spain</span></td>
+        <td><span class="tag win">France</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">Argentina</span>
+            <span class="tag win">England</span>
+            <span class="tag win">France</span>
+            <span class="tag win">Germany</span>
+            <span class="tag win">Portugal</span>
+            <span class="tag draw">Brazil</span>
+            <span class="tag draw">Netherlands</span>
+            <span class="tag draw">Spain</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="name">Edna Ariza</div></td>
+        <td><span class="tag win">Germany</span></td>
+        <td><span class="tag win">Colombia</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">Argentina</span>
+            <span class="tag win">Australia</span>
+            <span class="tag win">Austria</span>
+            <span class="tag win">Colombia</span>
+            <span class="tag win">England</span>
+            <span class="tag win">France</span>
+            <span class="tag win">Japan</span>
+            <span class="tag win">South Korea</span>
+            <span class="tag draw">Brazil</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="name">Dan Tovar</div></td>
+        <td><span class="tag draw">Portugal</span></td>
+        <td><span class="tag win">Argentina</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">Austria</span>
+            <span class="tag win">Germany</span>
+            <span class="tag win">Ghana</span>
+            <span class="tag win">Mexico</span>
+            <span class="tag win">USA</span>
+            <span class="tag draw">Brazil</span>
+            <span class="tag draw">Ecuador</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="name">Criz Guerra</div></td>
+        <td><span class="tag win">France</span></td>
+        <td><span class="tag draw">Spain</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">Argentina</span>
+            <span class="tag win">England</span>
+            <span class="tag win">France</span>
+            <span class="tag win">Japan</span>
+            <span class="tag win">Norway</span>
+            <span class="tag win">Portugal</span>
+            <span class="tag draw">Morocco</span>
+            <span class="tag draw">Spain</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="name">Cesar Zamarra</div></td>
+        <td><span class="tag draw">Portugal</span></td>
+        <td><span class="tag win">France</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">Colombia</span>
+            <span class="tag win">England</span>
+            <span class="tag win">Germany</span>
+            <span class="tag win">Japan</span>
+            <span class="tag win">Mexico</span>
+            <span class="tag win">USA</span>
+            <span class="tag draw">Brazil</span>
+            <span class="tag draw">Ecuador</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><div class="name">Alyson Nikulicz</div></td>
+        <td><span class="tag draw">Spain</span></td>
+        <td><span class="tag win">France</span></td>
+        <td>
+          <div class="picks-mini">
+            <span class="tag win">England</span>
+            <span class="tag win">France</span>
+            <span class="tag win">Germany</span>
+            <span class="tag win">Norway</span>
+            <span class="tag win">USA</span>
+            <span class="tag draw">Brazil</span>
+            <span class="tag draw">Spain</span>
+            <span class="tag draw">Uruguay</span>
+          </div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <!-- Golden Boot -->
+  <div class="section-title">Golden Boot race</div>
+  <table class="boot-table">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Goals so far</th>
+        <th>Picked by</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <strong>Lionel Messi</strong><span class="leader-tag">Leading</span><br>
+          <span style="font-size:11px;color:#888;">Hat-trick vs Algeria. At 38. Unfair.</span>
+        </td>
+        <td>
+          <div class="goals-bar-wrap">
+            <div class="goals-bar" style="width:90px;"></div>
+            <span class="goals-num">3</span>
+          </div>
+        </td>
+        <td class="pickers"><strong>Dan Tovar</strong></td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Kylian Mbappé</strong><br>
+          <span style="font-size:11px;color:#888;">Brace vs Senegal. On schedule.</span>
+        </td>
+        <td>
+          <div class="goals-bar-wrap">
+            <div class="goals-bar" style="width:60px;background:#7268FB;"></div>
+            <span class="goals-num">2</span>
+          </div>
+        </td>
+        <td class="pickers">Zeshan, Rafay, Saad, Dani B., Edna, Criz, Cesar, Alyson</td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Harry Kane</strong><br>
+          <span style="font-size:11px;color:#888;">Brace vs Croatia. England fans temporarily optimistic.</span>
+        </td>
+        <td>
+          <div class="goals-bar-wrap">
+            <div class="goals-bar" style="width:60px;background:#7268FB;"></div>
+            <span class="goals-num">2</span>
+          </div>
+        </td>
+        <td class="pickers">Isabel, María Camila</td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Lamine Yamal</strong><br>
+          <span style="font-size:11px;color:#888;">Played 90 mins vs Cabo Verde. Spain forgot to score.</span>
+        </td>
+        <td>
+          <div class="goals-bar-wrap">
+            <div class="goals-bar" style="width:4px;background:#C4BEFD;"></div>
+            <span class="goals-num" style="color:#aaa;">0</span>
+          </div>
+        </td>
+        <td class="pickers">Stamatis, Gerasimos</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    Points are awarded at the end of each phase. The first official scores will appear once the Round of 32 is confirmed on June 27. Until then — keep watching, keep suffering, and may your champion actually show up.
+  </div>
+
+</div>
+</body>
+</html>
