@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IR World Cup 2026 — Pool Update</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Arial', sans-serif; background: #EEEDF8; min-height: 100vh; }
+
+.hero { background: linear-gradient(135deg, #07024B 0%, #1a0f6b 50%, #4E3FFB 100%); padding: 40px 24px 32px; text-align: center; }
+.hero-badge { display: inline-block; background: rgba(83,226,216,0.18); border: 1px solid #53E2D8; color: #53E2D8; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; padding: 5px 16px; border-radius: 20px; margin-bottom: 16px; text-transform: uppercase; }
+.hero h1 { color: #fff; font-size: 28px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.5px; }
+.hero p { color: rgba(255,255,255,0.6); font-size: 13px; }
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 24px 20px 48px; }
+
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+.stat-box { background: #fff; border-radius: 12px; padding: 16px; text-align: center; border: 1px solid #E8E6F8; }
+.stat-box .num { font-size: 28px; font-weight: 700; color: #4E3FFB; line-height: 1; }
+.stat-box .lbl { font-size: 11px; color: #999; margin-top: 4px; }
+
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4E3FFB; margin-bottom: 14px; }
+
+/* Notice box */
+.notice-box { background: #FFF3D6; border: 1px solid #F4C766; border-radius: 12px; padding: 16px 18px; margin-bottom: 24px; }
+.notice-box .notice-title { font-size: 12px; font-weight: 700; color: #7D5500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+.notice-box p { font-size: 13px; color: #5C4300; line-height: 1.6; }
+
+.cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+.story-card { background: #fff; border-radius: 12px; padding: 18px; border: 1px solid #E8E6F8; border-top: 3px solid #ccc; }
+.story-card.orange { border-top-color: #F4A127; }
+.story-card.purple { border-top-color: #4E3FFB; }
+.story-card.teal { border-top-color: #53E2D8; }
+.story-card.red { border-top-color: #E85C5C; }
+.story-card.green { border-top-color: #52C97A; }
+.story-card h3 { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+.story-card.orange h3 { color: #C47A10; }
+.story-card.purple h3 { color: #4E3FFB; }
+.story-card.teal h3 { color: #0A8F87; }
+.story-card.red h3 { color: #C03030; }
+.story-card.green h3 { color: #2A8A50; }
+.story-card p { font-size: 13px; color: #444; line-height: 1.6; }
+.story-card p strong { color: #222; }
+
+.qualified-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+.q-card { background: #fff; border-radius: 10px; padding: 12px 14px; border: 1px solid #E8E6F8; display: flex; align-items: center; gap: 10px; }
+.q-card.ir { border-color: #B8DCA0; background: #F0FAE8; }
+.q-card.out { border-color: #F5C2C2; background: #FDF1F1; opacity: 0.7; }
+.q-card .flag { font-size: 24px; flex-shrink: 0; }
+.q-card .qinfo .qname { font-size: 13px; font-weight: 600; color: #222; }
+.q-card .qinfo .qsub { font-size: 11px; color: #888; margin-top: 1px; }
+.q-card.ir .qinfo .qsub { color: #2A8A50; font-weight: 500; }
+.q-card.out .qinfo .qsub { color: #C03030; font-weight: 500; }
+
+.boot-wrap { background: #fff; border-radius: 12px; border: 1px solid #E8E6F8; overflow: hidden; margin-bottom: 24px; }
+.boot-header { background: #07024B; padding: 11px 16px; display: grid; grid-template-columns: 1fr 140px 1fr; gap: 12px; align-items: center; }
+.boot-header span { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+.boot-header span:last-child { text-align: right; }
+.boot-row { display: grid; grid-template-columns: 1fr 140px 1fr; gap: 12px; align-items: center; padding: 13px 16px; border-bottom: 1px solid #F2F0FC; }
+.boot-row:last-child { border-bottom: none; }
+.boot-player .name { font-size: 14px; font-weight: 600; color: #111; }
+.boot-player .sub { font-size: 11px; color: #888; margin-top: 2px; font-style: italic; }
+.boot-bar-wrap { display: flex; align-items: center; gap: 8px; }
+.boot-bar-bg { flex: 1; background: #EEE; border-radius: 20px; height: 8px; overflow: hidden; }
+.boot-bar-fill { height: 100%; border-radius: 20px; background: #4E3FFB; }
+.boot-goals { font-size: 18px; font-weight: 700; color: #4E3FFB; width: 28px; text-align: right; flex-shrink: 0; }
+.boot-picked { font-size: 12px; color: #555; text-align: right; line-height: 1.5; }
+.badge-leading { display: inline-block; background: #FEF3C7; color: #92580A; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+.badge-record { display: inline-block; background: #E0DDFF; color: #3730A3; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+
+.footer-note { background: #E8E6FF; border-radius: 12px; padding: 16px 20px; font-size: 13px; color: #3730A3; line-height: 1.6; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Round of 32 — In Progress</div>
+  <h1>IR World Cup 2026 — Pool Update</h1>
+  <p>June 29, 2026 &nbsp;·&nbsp; Group Stage complete &nbsp;·&nbsp; 13 participants</p>
+</div>
+
+<div class="wrap">
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="num">32</div><div class="lbl">Teams remaining</div></div>
+    <div class="stat-box"><div class="num">16</div><div class="lbl">Teams eliminated</div></div>
+    <div class="stat-box"><div class="num">6</div><div class="lbl">Messi's goals (leads)</div></div>
+    <div class="stat-box"><div class="num">Jul 7</div><div class="lbl">Quarterfinalists known</div></div>
+  </div>
+
+  <div class="notice-box">
+    <div class="notice-title">🏆 First points drop July 7</div>
+    <p>The quarterfinalists will be official once the Round of 16 wraps up. That's when the leaderboard goes live for real. Until then — keep watching, keep yelling at your screen, and get ready.</p>
+  </div>
+
+  <div class="section-label">Group stage — final headlines</div>
+  <div class="cards-grid">
+
+    <div class="story-card purple">
+      <h3>Messi rewrote history.</h3>
+      <p>Hat-trick vs Algeria, brace vs Austria, a free-kick off the bench vs Jordan. <strong>6 goals, 3 games</strong>, and he's now the all-time leading scorer in World Cup history with 19 career goals — passing Miroslav Klose. Dan Tovar picked him as top scorer. Dan called it.</p>
+    </div>
+
+    <div class="story-card green">
+      <h3>Colombia topped their group 🇨🇴</h3>
+      <p>A scoreless draw with Portugal in the final group game was enough — Colombia finished first in Group K with 7 points. They now face Ghana in the Round of 32. Isabel and María Camila, your pick is still very much alive.</p>
+    </div>
+
+    <div class="story-card teal">
+      <h3>Mbappé, Haaland, Dembélé, Vinícius — all tied.</h3>
+      <p>Four goals each. Mbappé is now France's all-time record scorer, passing Olivier Giroud. 8 IR picks have Mbappé as top scorer — they're all still firmly in the race behind Messi.</p>
+    </div>
+
+    <div class="story-card orange">
+      <h3>Kane is right there.</h3>
+      <p>3 goals through the group stage, tied with a pack of strikers just behind the leaders. Isabel and María Camila's pick is still alive for the Golden Boot, even if Messi has a big head start.</p>
+    </div>
+
+    <div class="story-card red">
+      <h3>Big names already out.</h3>
+      <p>Japan, South Africa and Germany were among the first teams eliminated in the Round of 32. Edna — Germany lost to Paraguay. The Germany redemption arc is over for this tournament.</p>
+    </div>
+
+    <div class="story-card green">
+      <h3>Argentina, France, Mexico: perfect groups.</h3>
+      <p>All three finished the group stage with 9 points from 9 — not a single dropped point. Rafay (Argentina), Zeshan/Isabel/Criz (France), and anyone counting on co-host Mexico are looking very comfortable right now.</p>
+    </div>
+
+  </div>
+
+  <div class="section-label">Big names already eliminated</div>
+  <div class="qualified-grid">
+    <div class="q-card out"><span class="flag">🇩🇪</span><div class="qinfo"><div class="qname">Germany</div><div class="qsub">Lost Round of 32 to Paraguay</div></div></div>
+    <div class="q-card out"><span class="flag">🇯🇵</span><div class="qinfo"><div class="qname">Japan</div><div class="qsub">Eliminated, Round of 32</div></div></div>
+    <div class="q-card out"><span class="flag">🇿🇦</span><div class="qinfo"><div class="qname">South Africa</div><div class="qsub">Lost to Canada</div></div></div>
+    <div class="q-card ir"><span class="flag">🇦🇷</span><div class="qinfo"><div class="qname">Argentina</div><div class="qsub">9/9 points · Group J winner</div></div></div>
+    <div class="q-card ir"><span class="flag">🇫🇷</span><div class="qinfo"><div class="qname">France</div><div class="qsub">9/9 points · Group I winner</div></div></div>
+    <div class="q-card ir"><span class="flag">🇲🇽</span><div class="qinfo"><div class="qname">Mexico</div><div class="qsub">9/9 points · Group A winner</div></div></div>
+    <div class="q-card ir"><span class="flag">🇨🇴</span><div class="qinfo"><div class="qname">Colombia</div><div class="qsub">7 points · Group K winner</div></div></div>
+    <div class="q-card"><span class="flag">⏳</span><div class="qinfo"><div class="qname">More results</div><div class="qsub">Round of 32 runs to Jul 3</div></div></div>
+  </div>
+
+  <div class="section-label">Golden Boot Race</div>
+  <div class="boot-wrap">
+    <div class="boot-header">
+      <span>Player</span>
+      <span style="text-align:center;">Goals so far</span>
+      <span>Picked by</span>
+    </div>
+    <div class="boot-row">
+      <div class="boot-player">
+        <div class="name">Lionel Messi 🇦🇷 <span class="badge-leading">Leading</span> <span class="badge-record">All-time WC record</span></div>
+        <div class="sub">Hat-trick vs Algeria, brace vs Austria, free-kick vs Jordan. 19 career WC goals — most ever.</div>
+      </div>
+      <div class="boot-bar-wrap">
+        <div class="boot-bar-bg"><div class="boot-bar-fill" style="width:100%"></div></div>
+        <div class="boot-goals">6</div>
+      </div>
+      <div class="boot-picked">Dan Tovar</div>
+    </div>
+    <div class="boot-row">
+      <div class="boot-player">
+        <div class="name">Kylian Mbappé 🇫🇷</div>
+        <div class="sub">2 vs Senegal, 2 vs Iraq. Now France's all-time top scorer, passing Giroud.</div>
+      </div>
+      <div class="boot-bar-wrap">
+        <div class="boot-bar-bg"><div class="boot-bar-fill" style="width:67%"></div></div>
+        <div class="boot-goals">4</div>
+      </div>
+      <div class="boot-picked">Zeshan, Rafay, Saad,<br>Dani B., Edna, Criz,<br>Cesar, Alyson</div>
+    </div>
+    <div class="boot-row">
+      <div class="boot-player">
+        <div class="name">Erling Haaland 🇳🇴</div>
+        <div class="sub">2 vs Iraq, 2 vs Senegal. First-ever World Cup, hasn't slowed down.</div>
+      </div>
+      <div class="boot-bar-wrap">
+        <div class="boot-bar-bg"><div class="boot-bar-fill" style="width:67%"></div></div>
+        <div class="boot-goals">4</div>
+      </div>
+      <div class="boot-picked">—</div>
+    </div>
+    <div class="boot-row">
+      <div class="boot-player">
+        <div class="name">Ousmane Dembélé 🇫🇷 / Vinícius Jr. 🇧🇷</div>
+        <div class="sub">Both on 4 goals. Dembélé's been electric for France, Vini has carried Brazil's attack.</div>
+      </div>
+      <div class="boot-bar-wrap">
+        <div class="boot-bar-bg"><div class="boot-bar-fill" style="width:67%"></div></div>
+        <div class="boot-goals">4</div>
+      </div>
+      <div class="boot-picked">—</div>
+    </div>
+    <div class="boot-row">
+      <div class="boot-player">
+        <div class="name">Harry Kane 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+        <div class="sub">3 goals through the group stage. Right behind the leading pack.</div>
+      </div>
+      <div class="boot-bar-wrap">
+        <div class="boot-bar-bg"><div class="boot-bar-fill" style="width:50%"></div></div>
+        <div class="boot-goals">3</div>
+      </div>
+      <div class="boot-picked">Isabel, María Camila</div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    The Round of 32 wraps up on <strong>July 3</strong>, the Round of 16 follows from July 4–7. Once we know the real 8 quarterfinalists, points officially drop. Until then — most of your champions are still alive, Messi is unstoppable, and Germany already broke Edna's heart.
+  </div>
+
+</div>
+</body>
+</html>
